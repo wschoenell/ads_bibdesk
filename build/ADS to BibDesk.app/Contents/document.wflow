@@ -1,9 +1,9 @@
 <plist version="1.0">
 <dict>
 	<key>AMApplicationBuild</key>
-	<string>346</string>
+	<string>339.2</string>
 	<key>AMApplicationVersion</key>
-	<string>2.3</string>
+	<string>2.2.4</string>
 	<key>AMDocumentVersion</key>
 	<string>2</string>
 	<key>actions</key>
@@ -24,7 +24,7 @@
 					</array>
 				</dict>
 				<key>AMActionVersion</key>
-				<string>1.2.1</string>
+				<string>1.2</string>
 				<key>AMApplication</key>
 				<array>
 					<string>System</string>
@@ -52,7 +52,7 @@
 				<key>BundleIdentifier</key>
 				<string>com.apple.Automator.Get_Contents_of_Clipboard</string>
 				<key>CFBundleVersion</key>
-				<string>1.2.1</string>
+				<string>1.2</string>
 				<key>CanShowSelectedItemsWhenRun</key>
 				<true />
 				<key>CanShowWhenRun</key>
@@ -94,7 +94,7 @@
 					</array>
 				</dict>
 				<key>AMActionVersion</key>
-				<string>2.0.3</string>
+				<string>2.0.2</string>
 				<key>AMApplication</key>
 				<array>
 					<string>Automator</string>
@@ -335,7 +335,7 @@ end run
 				<key>BundleIdentifier</key>
 				<string>com.apple.RunShellScript</string>
 				<key>CFBundleVersion</key>
-				<string>2.0.3</string>
+				<string>2.0.2</string>
 				<key>CanShowSelectedItemsWhenRun</key>
 				<false />
 				<key>CanShowWhenRun</key>
@@ -435,7 +435,7 @@ end run
 				<key>isViewVisible</key>
 				<true />
 				<key>location</key>
-				<string>309.500000:605.000000</string>
+				<string>449.500000:203.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Run Shell Script.action/Contents/Resources/English.lproj/main.nib</string>
 			</dict>
@@ -445,7 +445,7 @@ end run
 	</array>
 	<key>connectors</key>
 	<dict>
-		<key>58B6FEC7-7A45-4F21-9FF3-FEDB8DC86651</key>
+		<key>505FEE86-D9E9-4197-BCE1-F0E316DCA934</key>
 		<dict>
 			<key>from</key>
 			<string>59A79AF9-E315-4B2F-995D-248D03F6B9F5 - 59A79AF9-E315-4B2F-995D-248D03F6B9F5</string>

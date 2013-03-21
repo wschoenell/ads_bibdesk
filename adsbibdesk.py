@@ -174,6 +174,19 @@ updated if it has a new bibcode."""
     else:
         process_articles(args, prefs)
 
+def mkMNRAS(author, year):
+    # Make MNRAS bibtex entry.
+    # Adapted from Natalia's original version
+    N_authors = len(author)
+    author1 = re.sub('},.*|\W', '', author[0])
+    if (N_authors >= 2): author2 = re.sub('},.*|\W', '', author[1])
+    if (N_authors >= 3): author3 = re.sub('},.*|\W', '', author[2])
+    if (N_authors == 1): MNRAScitekey = author1 + '.' + year
+    if (N_authors == 2): MNRAScitekey = author1 + '.' + author2 + '.' + year
+    if (N_authors == 3): MNRAScitekey = author1 + '.' + author2 + '.' + author3 + '.' + year
+    if (N_authors >= 4): MNRAScitekey = author1 + '.etal.' + year
+
+    return {'MNRAScitekey': MNRAScitekey}
 
 def process_articles(args, prefs, delay=15):
     """Workflow for processing article tokens"""
@@ -909,6 +922,8 @@ class ADSHTMLParser(HTMLParser):
         self.title = ''
         self.author = []
         self.arxivid = None
+        
+        self.year = ''
 
         self.prefs = kwargs.get('prefs', Preferences()).prefs
 
@@ -956,6 +971,7 @@ class ADSHTMLParser(HTMLParser):
                            .replace('{', '').replace('}', '').encode('utf-8')
             self.author = [a.strip().encode('utf-8') for a in
                            re.search('(?<={).+(?=})', self.bibtex.info['author']).group().split(' and ')]
+            self.year = self.bibtex.info['year']
             # bibtex do not have the comment from ADS
             if self.comment:
                 self.bibtex.info.update({'adscomment': '"' + self.comment + '"'})
@@ -971,6 +987,8 @@ class ADSHTMLParser(HTMLParser):
                     mirror = self.prefs['arxiv_mirror']
                 url = urlparse.urlunsplit(('http', mirror, 'abs/'+self.arxivid, None, None))
                 self.bibtex.info.update({'arxivurl': '"' + url + '"'})
+                
+            self.bibtex.info.update(mkMNRAS(self.author, self.year))
 
     def handle_starttag(self, tag, attrs):
         #abstract

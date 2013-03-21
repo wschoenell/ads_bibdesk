@@ -6,3 +6,6 @@ build/adsbibdesk/adsbibdesk.egg-info/
 build/adsbibdesk/build/
 build/adsbibdesk/dist/
 build/adsbibdesk/adsbibdesk.py
+.project
+.pydevproject
+.settings

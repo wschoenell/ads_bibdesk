@@ -1085,6 +1085,7 @@ class ADSHTMLParser(HTMLParser):
                     parser.parse(url)
                 except MNRASException:
                     # this probably means we have a PDF directly from ADS, just continue
+                    print 'excepct'
                     pass
                 if parser.pdfURL is not None:
                     url = parser.pdfURL
@@ -1262,14 +1263,6 @@ class ArXivParser(object):
                '}'
 
 
-def test_mnras():
-    prefs = Preferences()
-    prefs['debug'] = True
-    data = '<iframe id="pdfDocument" src="http://onlinelibrary.wiley.com/store/10.1111/j.1365-2966.2010.18174.x/asset/j.1365-2966.2010.18174.x.pdf?v=1&amp;t=gp75eg4q&amp;s=c7ec3f26d269f5f4187799ff6faf44ebe01bbb01" width="100%" height="100%"></iframe>'
-    parser = MNRASParser(prefs)
-    # parser.parse(mnrasURL)
-    parser.feed(data)
-    print parser.pdfURL
 
 
 class MNRASException(Exception):
@@ -1291,23 +1284,13 @@ class MNRASParser(HTMLParser):
     def parse(self, url):
         """Parse URL to MNRAS PDF page"""
         try:
-            self.feed(urllib2.urlopen(url).read())
+            self.feed = urllib2.urlopen(url)
+            self.pdfURL = self.feed.url.split('+')[0]
         except urllib2.URLError, err:  # HTTP timeout
             logging.debug("MNRASParser timed out: %s", url)
             raise MNRASException(err)
         except HTMLParseError, err:
             raise MNRASException(err)
-
-    def handle_starttag(self, tag, attrs):
-        """
-        def get_mnras_pdf(url):
-           soup = BeautifulSoup(urllib2.urlopen(url))
-           pdfurl = soup.find('iframe')['src']
-           open('mnras.pdf', 'wb').write(urllib2.urlopen(pdfurl).read())
-        """
-        if tag.lower() == "iframe":
-            attrDict = dict(attrs)
-            self.pdfURL = attrDict['src']
 
 
 if __name__ == '__main__':

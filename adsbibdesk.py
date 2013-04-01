@@ -973,7 +973,7 @@ class ADSHTMLParser(HTMLParser):
             self.year = self.bibtex.info['year']
             # bibtex do not have the comment from ADS
             if self.comment:
-                self.bibtex.info.update({'adscomment': '"' + self.comment.replace('"',"'") + '"'})
+                self.comment = '"' + self.comment.replace('"',"'") + '"'
             # construct ArXivURL from arXiv identifier
             if self.arxivid:
                 if 'arxiv_mirror' not in self.prefs or not self.prefs['arxiv_mirror']:

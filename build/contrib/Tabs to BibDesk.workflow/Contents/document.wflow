@@ -105,7 +105,7 @@ end run</string>
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>449.500000:516.000000</string>
+				<string>302.000000:516.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/English.lproj/main.nib</string>
 			</dict>
@@ -161,7 +161,7 @@ end run</string>
 				<key>ActionParameters</key>
 				<dict>
 					<key>COMMAND_STRING</key>
-					<string>urls=`cat "$@" | grep 'arxiv\|adsabs'`
+					<string>urls=`cat "$@" | grep 'arxiv\|adsabs\|lanl'`
 
 for url in $urls
 do
@@ -279,7 +279,7 @@ done</string>
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>449.500000:203.000000</string>
+				<string>302.000000:203.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Run Shell Script.action/Contents/Resources/English.lproj/main.nib</string>
 			</dict>
@@ -289,7 +289,7 @@ done</string>
 	</array>
 	<key>connectors</key>
 	<dict>
-		<key>1DC24461-884F-41D8-B623-44038C2423B2</key>
+		<key>96A13452-C3DA-4754-BC52-F195A48FBE72</key>
 		<dict>
 			<key>from</key>
 			<string>D73164ED-DD1A-497F-A036-3EE098E9FF2E - D73164ED-DD1A-497F-A036-3EE098E9FF2E</string>

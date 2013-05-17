@@ -112,7 +112,11 @@ Preprint PDFs with notes are saved alongside the journal versions.
 
 4) File pdfs again: CMD-SHIFT-k
 
+5) Import a directory full of pdfs (needs pdf2json; only works for pdfs with DOIs):
 
+        adsbibdesk -p /path_to_dir/
+
+6) Further info at: [http://www.jonathansick.ca/adsbibdesk/index.html](http://www.jonathansick.ca/adsbibdesk/index.html)
 
 
 

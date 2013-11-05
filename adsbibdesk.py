@@ -174,6 +174,7 @@ updated if it has a new bibcode."""
     else:
         process_articles(args, prefs)
 
+
 def mkMNRAS(author, year):
     # Make MNRAS bibtex entry.
     # Adapted from Natalia's original version
@@ -230,6 +231,7 @@ def process_token(articleToken, prefs, bibdesk):
         ads.bibtex = connector.bibtex
         ads.arxivid = ads.bibtex.Eprint
         ads.author = ads.bibtex.Author.split(' and ')
+        ads.year = ads.bibtex.Year
         ads.title = ads.bibtex.Title
         ads.abstract = ads.bibtex.Abstract
         ads.comment = ads.bibtex.AdsComment
@@ -254,6 +256,12 @@ def process_token(articleToken, prefs, bibdesk):
         logging.debug("process_token skipping %s", articleToken)
         return False
 
+    # Get MnrasCitekey
+    if connector.adsRead is not None:
+        ads.bibtex.info.update(mkMNRAS(ads.author, ads.year))
+        if getattr(connector, 'bibtex') is not None:
+            ads.bibtex.MNRAScitekey = ads.bibtex.info['MNRAScitekey']
+    
     # get PDF first
     pdf = ads.getPDF()
 
@@ -801,7 +809,7 @@ class BibTex(object):
         bibtex = ' '.join([l.strip() for l in bibtex]).strip()
         bibtex = bibtex[re.search('@[A-Z]+\{', bibtex).start():]
         self.type, self.bibcode, self.info = self.parsebib(bibtex)
-
+        
     def __str__(self):
         return (','.join(['@' + self.type + '{' + self.bibcode] +
                          ['%s=%s' % (i, j) for i, j in self.info.items()]) + '}'
@@ -986,8 +994,6 @@ class ADSHTMLParser(HTMLParser):
                     mirror = self.prefs['arxiv_mirror']
                 url = urlparse.urlunsplit(('http', mirror, 'abs/'+self.arxivid, None, None))
                 self.bibtex.info.update({'arxivurl': '"' + url + '"'})
-                
-            self.bibtex.info.update(mkMNRAS(self.author, self.year))
 
     def handle_starttag(self, tag, attrs):
         #abstract
@@ -1200,7 +1206,7 @@ class ArXivParser(object):
         :param arxiv_id: arXiv identifier
         """
         pass
-
+    
     def parse_at_id(self, arxiv_id):
         """Helper method to read data from URL, and passes on to parse()."""
         from xml.etree import ElementTree
@@ -1262,8 +1268,6 @@ class ArXivParser(object):
                '}'
 
 
-
-
 class MNRASException(Exception):
     pass
 
@@ -1294,3 +1298,4 @@ class MNRASParser(HTMLParser):
 
 if __name__ == '__main__':
     main()
+

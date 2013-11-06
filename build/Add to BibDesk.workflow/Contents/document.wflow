@@ -318,8 +318,9 @@ def process_token(articleToken, prefs, bibdesk):
     # Get MnrasCitekey
     if connector.adsRead is not None:
         ads.bibtex.info.update(mkMNRAS(ads.author, ads.year))
-        if getattr(connector, 'bibtex') is not None:
-            ads.bibtex.MNRAScitekey = ads.bibtex.info['MNRAScitekey']
+        if not isinstance(connector.adsRead, basestring):
+            if getattr(connector, 'bibtex') is not None:
+                ads.bibtex.MNRAScitekey = ads.bibtex.info['MNRAScitekey']
     
     # get PDF first
     pdf = ads.getPDF()

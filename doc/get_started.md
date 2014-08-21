@@ -36,7 +36,7 @@ Natalia@UFSC - 07/May/2013
       defaults write -app BibDesk "Cite Key Format Preset" 0
       defaults write -app BibDesk "Cite Key Format" -string "%f{Mnrascitekey}%u1"
       defaults write -app BibDesk "Cite Key Clean Braces or TeX" 2     
-      defaults write -app BibDesk "Default Fields" '( Keywords,  Mnrascitekey )'
+      defaults write -app BibDesk "Default Fields" '( Keywords, Mnrascitekey, Natkeywords )'
       
       # AutoFile
       defaults write -app BibDesk "File papers into the papers folder automatically" 1

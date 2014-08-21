@@ -105,7 +105,7 @@ end run</string>
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>309.500000:696.000000</string>
+				<string>309.500000:516.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/English.lproj/main.nib</string>
 			</dict>
@@ -163,11 +163,9 @@ end run</string>
 					<key>COMMAND_STRING</key>
 					<string>urls=`/bin/cat "$@" | /usr/bin/grep 'arxiv\|adsabs\|lanl'`
 
-echo $urls &gt; ~/2.txt
-
 for url in $urls
 do
-	/usr/bin/automator -i "$url" "$HOME/Library/Services/Add to BibDesk.workflow" &gt; ~/1.txt
+	/usr/bin/automator -i "$url" "$HOME/Library/Services/Add to BibDesk.workflow"
 done</string>
 					<key>CheckedForUserDefaultShell</key>
 					<true/>
@@ -281,7 +279,7 @@ done</string>
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>309.500000:383.000000</string>
+				<string>309.500000:203.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Run Shell Script.action/Contents/Resources/English.lproj/main.nib</string>
 			</dict>
@@ -291,7 +289,7 @@ done</string>
 	</array>
 	<key>connectors</key>
 	<dict>
-		<key>49623800-F5DC-48BB-BA3B-B494C408CD99</key>
+		<key>8130ED6D-CA5C-4382-A146-EA27071E2C47</key>
 		<dict>
 			<key>from</key>
 			<string>D73164ED-DD1A-497F-A036-3EE098E9FF2E - D73164ED-DD1A-497F-A036-3EE098E9FF2E</string>

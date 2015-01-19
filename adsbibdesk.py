@@ -302,10 +302,21 @@ def process_token(articleToken, prefs, bibdesk):
     if found and difflib.SequenceMatcher(None,
                                          bibdesk.authors(bibdesk.pid(found[0]))[0],
                                          ads.author[0]).ratio() > .6:
-        keptPDFs += bibdesk.safe_delete(bibdesk.pid(found[0]))
-        notify('Duplicate publication removed',
-               articleToken, ads.title)
-        bibdesk.refresh()
+        delete_pubs = True
+        if prefs['debug']:
+            pubs = bibdesk.citekeys(bibdesk.pid(found[0]))
+            print "@@> Found repeated publications: %s" % pubs
+            answer = raw_input("    Delete them [y/N]? ")
+            if ((answer == '') | (answer == 'n') | (answer == 'N')):
+                delete_pubs = False
+                print "@@> Not deleting %s" % pubs
+            else:
+                print "@@> Deleting %s" % pubs
+        if delete_pubs:
+            keptPDFs += bibdesk.safe_delete(bibdesk.pid(found[0]))
+            notify('Duplicate publication removed',
+                   articleToken, ads.title)
+            bibdesk.refresh()
 
     # add new entry
     pub = bibdesk('import from "%s"' % ads.bibtex.__str__().replace('\\', r'\\').replace('"', r'\"'))
@@ -862,6 +873,7 @@ class BibDesk(object):
     def refresh(self):
         self.titles = self('return title of publications', strlist=True)
         self.ids = self('return id of publications', strlist=True)
+        self.keys = self('return cite key of publications', strlist=True)
 
     def pid(self, title):
         return self.ids[self.titles.index(title)]
@@ -871,6 +883,12 @@ class BibDesk(object):
         Get name of authors of publication
         """
         return self('name of authors', pid, strlist=True)
+
+    def citekeys(self, pid):
+        """
+        Get citekeys of publication
+        """
+        return self.keys[self.ids == pid]
 
     def safe_delete(self, pid):
         """

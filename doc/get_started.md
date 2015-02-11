@@ -116,7 +116,23 @@ Preprint PDFs with notes are saved alongside the journal versions.
 
         adsbibdesk -p /path_to_dir/
 
-6) Further info at: [http://www.jonathansick.ca/adsbibdesk/index.html](http://www.jonathansick.ca/adsbibdesk/index.html)
+6) Sometimes the adsbibdesk deletes a paper which has a similar title
+and author list when it shouldn't, for instance 2001ApJ...554..778L and
+2002ApJ...576..762L. I have coded a work around. First, import one of the papers:
+
+        adsbibdesk 2001ApJ...554..778L
+
+Then import the other one using the debug option:
+
+        adsbibdesk -d 2002ApJ...576..762L
+
+When asked to delete the "repeated" publication, answer No (which is the
+default answer):
+
+        @@> Found repeated publications: Li.Draine.2001a
+        Delete them [y/N]? [Press enter]
+
+7) Further info at: [http://www.jonathansick.ca/adsbibdesk/index.html](http://www.jonathansick.ca/adsbibdesk/index.html)
 
 
 

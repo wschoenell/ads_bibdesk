@@ -344,6 +344,9 @@ def process_token(articleToken, prefs, bibdesk):
     elif 'http' in pdf and not bibdesk('value of field "doi"', pub).stringValue():
         bibdesk('make new linked URL at end of linked URLs with data "%s"' % pdf, pub)
 
+    import time
+    time.sleep(10)
+    
     # add URLs as linked URL if not there yet
     urls = bibdesk('value of fields whose name ends with "url"', pub, strlist=True)
     urlspub = bibdesk('linked URLs', pub, strlist=True)
@@ -357,6 +360,8 @@ def process_token(articleToken, prefs, bibdesk):
     notify('New publication added',
            bibdesk('cite key', pub).stringValue(),
            ads.title)
+    
+    bibdesk('save')
 
 
 def ingest_pdfs(options, args, prefs):

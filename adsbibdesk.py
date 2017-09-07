@@ -52,7 +52,7 @@ try:
     import AppKit
 except ImportError:
     # is this not the system python?
-    syspath = eval(sp.Popen('/usr/bin/python -c "import sys; print(sys.path)"',
+    syspath = eval(sp.Popen('/usr/bin/env python -c "import sys; print(sys.path)"',
                             shell=True, stdout=sp.PIPE).stdout.read())
     for p in syspath:
         if os.path.isdir(p) and glob.glob(os.path.join(p, '*AppKit*')):

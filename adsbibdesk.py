@@ -336,8 +336,6 @@ def process_token(articleToken, prefs, bibdesk):
     if pdf.endswith('.pdf'):
         # register PDF into BibDesk
         bibdesk('add POSIX file "%s" to beginning of linked files' % pdf, pub)
-        # automatic file name
-        bibdesk('auto file', pub)
 
     # URL for electronic version - only add it if no DOI link present
     # (they are very probably the same)
@@ -354,6 +352,14 @@ def process_token(articleToken, prefs, bibdesk):
     for keptPDF in keptPDFs:
         bibdesk('add POSIX file "%s" to end of linked files' % keptPDF, pub)
 
+    # automatic file name
+    if 'auto_file' in prefs:
+        if prefs['auto_file']:
+            bibdesk('auto file', pub)
+
+    # save bibdesk file
+    bibdesk('save')
+            
     notify('New publication added',
            bibdesk('cite key', pub).stringValue(),
            ads.title)
@@ -752,6 +758,7 @@ class Preferences(object):
                 "arxiv_mirror": None,
                 "download_pdf": True,
                 "pdf_reader": None,
+                "auto_file": True,
                 "ssh_user": None,
                 "ssh_server": None,
                 "debug": False,

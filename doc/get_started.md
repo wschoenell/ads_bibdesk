@@ -132,7 +132,23 @@ default answer):
         @@> Found repeated publications: Li.Draine.2001a
         Delete them [y/N]? [Press enter]
 
-7) Further info at: [http://www.jonathansick.ca/adsbibdesk/index.html](http://www.jonathansick.ca/adsbibdesk/index.html)
+7) If your Bibdesk sometimes crashes for no good reason, check the log
+report with "Send crash report". It will most likely have an error that
+says
+
+    Terminating app due to uncaught exception 'NSInternalInconsistencyException', reason: 'file:///private/var/folders/q7/k1qqvlg96t1_qnff8ntnkh5w0000gn/T/tmptFN6yw.pdf is not safe for mmap()’.
+
+A work around is to turn off auto filing in Bibdesk by addind this to
+~/.adsbibdesk: 
+
+    # auto file?
+    auto_file=False
+
+This means that, after importing your references, you have to file your
+pdfs manually. Just select your references and use the `CMD-SHIFT-k`
+shortcut.
+
+8) Further info at: [http://www.jonathansick.ca/adsbibdesk/index.html](http://www.jonathansick.ca/adsbibdesk/index.html)
 
 
 

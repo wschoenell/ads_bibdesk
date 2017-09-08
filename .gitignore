@@ -9,3 +9,10 @@ build/adsbibdesk/adsbibdesk.py
 .project
 .pydevproject
 .settings
+adsbibdesk.egg-info/dependency_links.txt
+adsbibdesk.egg-info/entry_points.txt
+adsbibdesk.egg-info/PKG-INFO
+adsbibdesk.egg-info/SOURCES.txt
+adsbibdesk.egg-info/top_level.txt
+build/lib/adsbibdesk.py
+dist/adsbibdesk-3.1-py2.7.egg

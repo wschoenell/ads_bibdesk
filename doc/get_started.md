@@ -10,7 +10,7 @@ Natalia@UFSC - 07/May/2013
 
       git clone https://github.com/wschoenell/ads_bibdesk.git 
       mkdir -p ~/Library/Services
-      cp -pr "ads_bibdesk/build/Add to BibDesk.workflow" "ads_bibdesk/build/contrib/Tabs to BibDesk.workflow" ~/Library/Services/
+      cp -pr "ads_bibdesk/build/contrib/Add to BibDesk.workflow" "ads_bibdesk/build/contrib/Tabs to BibDesk.workflow" ~/Library/Services/
       cd ads_bibdesk/
       python build.py
       cd build/adsbibdesk

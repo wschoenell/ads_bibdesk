@@ -331,7 +331,7 @@ def process_token(articleToken, prefs, bibdesk):
                 'with data "%s"' % ads.abstract, pub)
     else:
         bibdesk('set abstract to "%s"'
-                % ads.abstract.replace('\\', r'\\').replace('"', r'\"'), pub)
+                % balance_brackets(ads.abstract.replace('\\', r'\\').replace('"', r'\"')), pub)
 
     if pdf.endswith('.pdf'):
         # register PDF into BibDesk
@@ -363,6 +363,66 @@ def process_token(articleToken, prefs, bibdesk):
     notify('New publication added',
            bibdesk('cite key', pub).stringValue(),
            ads.title)
+
+
+def balance_brackets(instr):
+    '''
+    Balance unpaired brackets in abstracts, which cause errors in Bibdesk.
+    
+    Code based on
+    https://stackoverflow.com/questions/6701853/parentheses-pairing-issue
+
+    The difference is that it balances out the string.
+    
+    Commented by Natalia@UFSC - 14/Sep/2017.
+    '''
+    
+    # Creating a dictionary where key = opening bracket and value = closing bracket.
+    iparens = iter('(){}[]<>')
+    parens = dict(zip(iparens, iparens))
+    inv_parens = {v: k for k, v in parens.iteritems()}
+    closing = parens.values()
+    
+    # Starting a stack of closing brackets to be searched for
+    stack = []
+
+    # Starting the paired output string
+    outstr = ''
+    
+    for c in instr:
+
+        # See if this character matches an opening bracket in the dictionary.
+        # If so, save the closing bracket in the variable d -- to be matched later on!
+        d = parens.get(c, None)
+        outstr += c
+
+        # Save this to-be-matched opening bracket to the stack
+        if d is not None:
+            stack.append(d)
+
+        # For each closing bracket, check if there is a previous opening bracket by 
+        # consulting the stack.
+        # Note that (not list) = False if the list is empty, and it is the pythonic way 
+        # to test whether a list is empty.
+        elif c in closing:
+
+            if (stack):
+                c_popped = stack.pop()
+                
+                # This opening bracket is unpaired: pair it!
+                if (c != c_popped):
+                    outstr =  outstr[:-1] + c_popped
+                
+            # This closing bracket is unpaired: pair it!
+            else:
+                outstr = outstr[:-1] + inv_parens[c] + c
+
+    # If thre is anything left on the stack, add the end of the string to pair 
+    # the opening brackets without matchs
+    if (stack):
+        outstr += ''.join(stack)
+            
+    return outstr
 
 
 def ingest_pdfs(options, args, prefs):

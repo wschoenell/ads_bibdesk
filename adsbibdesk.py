@@ -77,7 +77,7 @@ from HTMLParser import HTMLParser, HTMLParseError
 from htmlentitydefs import name2codepoint
 
 # default timeout for url calls
-socket.setdefaulttimeout(30)
+socket.setdefaulttimeout(240)
 
 
 def main():

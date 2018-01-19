@@ -262,7 +262,11 @@ def process_token(articleToken, prefs, bibdesk):
         if not isinstance(connector.adsRead, basestring):
             if getattr(connector, 'bibtex') is not None:
                 ads.bibtex.MNRAScitekey = ads.bibtex.info['MNRAScitekey']
-    
+
+    # Remove ADS keywords?
+    if not ads.prefs['ads_keywords']:
+        del ads.bibtex.info['keywords']
+        
     # get PDF first
     pdf = ads.getPDF()
 
@@ -302,6 +306,7 @@ def process_token(articleToken, prefs, bibdesk):
     if found and difflib.SequenceMatcher(None,
                                          bibdesk.authors(bibdesk.pid(found[0]))[0],
                                          ads.author[0]).ratio() > .6:
+
         delete_pubs = True
         if prefs['debug']:
             pubs = bibdesk.citekeys(bibdesk.pid(found[0]))
@@ -313,6 +318,10 @@ def process_token(articleToken, prefs, bibdesk):
             else:
                 print "@@> Deleting %s" % pubs
         if delete_pubs:
+            # Copy old keywords
+            if not ads.prefs['ads_keywords']:
+                ads.bibtex.info['keywords'] = bibdesk.keywords(bibdesk.pid(found[0]))
+            # Deal with pdf
             keptPDFs += bibdesk.safe_delete(bibdesk.pid(found[0]))
             notify('Duplicate publication removed',
                    articleToken, ads.title)
@@ -821,6 +830,7 @@ class Preferences(object):
                 "auto_file": True,
                 "ssh_user": None,
                 "ssh_server": None,
+                "ads_keywords": True,
                 "debug": False,
                 "log_path": os.path.expanduser("~/.adsbibdesk.log")}
 
@@ -941,7 +951,8 @@ class BibDesk(object):
         self.titles = self('return title of publications', strlist=True)
         self.ids = self('return id of publications', strlist=True)
         self.keys = self('return cite key of publications', strlist=True)
-
+        self.kwords = self('return keywords of publications', strlist=True)
+        
     def pid(self, title):
         return self.ids[self.titles.index(title)]
 
@@ -957,6 +968,12 @@ class BibDesk(object):
         """
         return self.keys[self.ids == pid]
 
+    def keywords(self, pid):
+        """
+        Get keywords of publication
+        """
+        return '{' + self.kwords[self.ids == pid] + '}'
+    
     def safe_delete(self, pid):
         """
         Safely delete publication + PDFs, taking into account

@@ -265,7 +265,8 @@ def process_token(articleToken, prefs, bibdesk):
 
     # Remove ADS keywords?
     if not ads.prefs['ads_keywords']:
-        del ads.bibtex.info['keywords']
+        if 'keywords' in ads.bibtex.info.keys():
+            del ads.bibtex.info['keywords']
         
     # get PDF first
     pdf = ads.getPDF()

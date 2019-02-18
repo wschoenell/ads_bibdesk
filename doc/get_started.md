@@ -8,55 +8,55 @@ Natalia@UFSC - 07/May/2013
 
 2) Download & install ads_bibdesk scripts. From the terminal, run:
 
-      git clone https://github.com/wschoenell/ads_bibdesk.git 
-      mkdir -p ~/Library/Services
-      cp -pr "ads_bibdesk/build/contrib/Add to BibDesk.workflow" "ads_bibdesk/build/contrib/Tabs to BibDesk.workflow" ~/Library/Services/
-      cd ads_bibdesk/
-      python build.py
-      cd build/adsbibdesk
-      python setup.py install
+        git clone https://github.com/wschoenell/ads_bibdesk.git 
+        mkdir -p ~/Library/Services
+        cp -pr "ads_bibdesk/build/contrib/Add to BibDesk.workflow" "ads_bibdesk/build/contrib/Tabs to BibDesk.workflow" ~/Library/Services/
+        cd ads_bibdesk/
+        python build.py
+        cd build/adsbibdesk
+        python setup.py install
 
 3) Create an empty bibtex file and choose where to store your pdf files. From the terminal:
 
-      mkdir -p ~/Papers  
-      touch ~/Papers/Papers.bib
+        mkdir -p ~/Papers
+        touch ~/Papers/Papers.bib
 
 4) Configure Bibdesk to open your .bib file.
 
-   Open Bibdesk  
-   > Open Bibdesk Preferences (CMD-,)   
-   > General  
-   > choose "Open File"   
-   > find "~/Papers/Papers.bib"
+        Open Bibdesk
+        > Open Bibdesk Preferences (CMD-,)
+        > General
+        > choose "Open File"
+        > find "~/Papers/Papers.bib"
 
 5) Quit Bibdesk. Change some preferences by running the commands below from the terminal:
 
-      # Cite Key
-      defaults write -app BibDesk "Cite Key Autogenerate" 1
-      defaults write -app BibDesk "Cite Key Format Preset" 0
-      defaults write -app BibDesk "Cite Key Format" -string "%f{Mnrascitekey}%u1"
-      defaults write -app BibDesk "Cite Key Clean Braces or TeX" 2     
-      defaults write -app BibDesk "Default Fields" '( Keywords, Mnrascitekey, Natkeywords )'
-      
-      # AutoFile
-      defaults write -app BibDesk "File papers into the papers folder automatically" 1
-      defaults write -app BibDesk BDSKLocalFileFormatPresetKey 0
-      defaults write -app BibDesk BDSKLocalFileFormatKey -string "%Y/%f{Cite Key}%n0%e"
-      defaults write -app BibDesk "Path to the papers folder" ""
-      
-      # Backup
-      defaults write -app BibDesk BDSKShouldAutosaveDocumentKey 1
-      defaults write -app BibDesk BDSKAutosaveTimeIntervalKey 60
-
-      # Window configuration
-      defaults write -app BibDesk "Boolean fields" '( Read )'
-
-      # Turn off automatic updates
-      defaults write -app BibDesk SUEnableAutomaticChecks 0
-
-      # Shortcuts
-      defaults write -app BibDesk NSUserKeyEquivalents '{ "Open Linked Files" = "@~o";}'
-      defaults write pbs NSServicesStatus -dict-add '"(null) - Add to BibDesk - runWorkflowAsService"' '{key_equivalent = "@~n";}'
+        # Cite Key
+        defaults write -app BibDesk "Cite Key Autogenerate" 1
+        defaults write -app BibDesk "Cite Key Format Preset" 0
+        defaults write -app BibDesk "Cite Key Format" -string "%f{Mnrascitekey}%u1"
+        defaults write -app BibDesk "Cite Key Clean Braces or TeX" 2     
+        defaults write -app BibDesk "Default Fields" '( Keywords, Mnrascitekey, Natkeywords )'
+        
+        # AutoFile
+        defaults write -app BibDesk "File papers into the papers folder automatically" 1
+        defaults write -app BibDesk BDSKLocalFileFormatPresetKey 0
+        defaults write -app BibDesk BDSKLocalFileFormatKey -string "%Y/%f{Cite Key}%n0%e"
+        defaults write -app BibDesk "Path to the papers folder" ""
+        
+        # Backup
+        defaults write -app BibDesk BDSKShouldAutosaveDocumentKey 1
+        defaults write -app BibDesk BDSKAutosaveTimeIntervalKey 60
+        
+        # Window configuration
+        defaults write -app BibDesk "Boolean fields" '( Read )'
+        
+        # Turn off automatic updates
+        defaults write -app BibDesk SUEnableAutomaticChecks 0
+        
+        # Shortcuts
+        defaults write -app BibDesk NSUserKeyEquivalents '{ "Open Linked Files" = "@~o";}'
+        defaults write pbs NSServicesStatus -dict-add '"(null) - Add to BibDesk - runWorkflowAsService"' '{key_equivalent = "@~n";}'
 
 6) Import a few papers. Open some ADS links on Chrome, e.g.:
 
@@ -136,19 +136,21 @@ default answer):
 report with "Send crash report". It will most likely have an error that
 says
 
-    Terminating app due to uncaught exception 'NSInternalInconsistencyException', reason: 'file:///private/var/folders/q7/k1qqvlg96t1_qnff8ntnkh5w0000gn/T/tmptFN6yw.pdf is not safe for mmap()’.
+        Terminating app due to uncaught exception 'NSInternalInconsistencyException', reason: 'file:///private/var/folders/q7/k1qqvlg96t1_qnff8ntnkh5w0000gn/T/tmptFN6yw.pdf is not safe for mmap()’.
 
 A work around is to turn off auto filing in Bibdesk by addind this to
 ~/.adsbibdesk: 
 
-    # auto file?
-    auto_file=False
+        # auto file?
+        auto_file=False
 
 This means that, after importing your references, you have to file your
 pdfs manually. Just select your references and use the `CMD-SHIFT-k`
 shortcut.
 
-8) Further info at: [http://www.jonathansick.ca/adsbibdesk/index.html](http://www.jonathansick.ca/adsbibdesk/index.html)
+8) Install a new [export template](https://tex.stackexchange.com/questions/268422/how-to-create-a-new-bibdesk-export-template).
+
+9) Further info at: [http://www.jonathansick.ca/adsbibdesk/index.html](http://www.jonathansick.ca/adsbibdesk/index.html)
 
 
 

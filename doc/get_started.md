@@ -55,7 +55,7 @@ Natalia@UFSC - 07/May/2013
         defaults write -app BibDesk SUEnableAutomaticChecks 0
         
         # Shortcuts
-        defaults write -app BibDesk NSUserKeyEquivalents '{ "Open Linked Files" = "@~o";}'
+        defaults write -app BibDesk NSUserKeyEquivalents '{ "Open Files" = "@~o";}'
         defaults write pbs NSServicesStatus -dict-add '"(null) - Add to BibDesk - runWorkflowAsService"' '{key_equivalent = "@~n";}'
 
 6) Import a few papers. Open some ADS links on Chrome, e.g.:
